@@ -1,12 +1,22 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, TouchableOpacity, TextInput, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  StatusBar,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import AuthContext from '../../../contexts/auth';
 import styles from '../../../styles/global';
+import colors from 'src/styles/colors';
 
-const Login: React.FC = ({navigation}) => {
+const Login: React.FC = () => {
   const {signed, signIn} = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
   console.log(signed);
 
   function handleSignIn() {
@@ -21,7 +31,12 @@ const Login: React.FC = ({navigation}) => {
 
   return (
     <View style={styles.containerCenter}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F5F9FC" />
+
       <Image source={require('../../../assets/logo.jpg')} style={styles.logo} />
+
+      <Text style={styles.HeaderForm}>Informar dados do usuário</Text>
+
       <TextInput
         placeholder="E-mail"
         keyboardType="email-address"

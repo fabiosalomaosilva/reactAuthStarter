@@ -26,15 +26,16 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingHorizontal: 20,
-    paddingVertical: 5,
-    borderRadius: 5,
     borderColor: colors.border,
     borderWidth: 1,
     backgroundColor: '#FFF',
     alignSelf: 'stretch',
+    justifyContent: 'center',
     marginHorizontal: 20,
     fontSize: 16,
     marginTop: 15,
+    height: 40,
+    borderRadius: 20,
   },
   logo: {
     width: 150,
@@ -55,16 +56,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
   },
-  LabelLarge: {
+  HeaderForm: {
     color: colors.primary,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 14,
   },
   link: {
     color: colors.primaryDark,
     textAlign: 'center',
     fontSize: 16,
-    marginTop: 20,
+    marginTop: 15,
   },
 });
 
