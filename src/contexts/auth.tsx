@@ -9,16 +9,23 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<User | null>(null);
 
-  async function signIn() {
+  async function signIn(username: string, password: string) {
     const dados = {
-      username: '',
-      password: '',
+      username: username,
+      password: password,
     };
+    console.log(dados);
 
     const auth = await Api.post<User>('/api/account/token', dados);
-    setUser(auth.data);
 
-    console.log(user);
+    const user: User = {
+      access_token: auth.data.access_token,
+      email: auth.data.email,
+      fotoUri: auth.data.fotoUri,
+      nomeCompleto: auth.data.nomeCompleto,
+    };
+
+    setUser(user);
   }
   return (
     <AuthContext.Provider value={{signed: !!user, user, signIn}}>
