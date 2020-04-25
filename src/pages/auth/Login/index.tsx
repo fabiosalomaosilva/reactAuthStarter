@@ -10,7 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import AuthContext from '../../../contexts/auth';
 import styles from '../../../styles/global';
-import colors from 'src/styles/colors';
+import colors from '../../../styles/colors';
 
 const Login: React.FC = () => {
   const {signed, signIn} = useContext(AuthContext);
@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 
   return (
     <View style={styles.containerCenter}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F5F9FC" />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
 
       <Image source={require('../../../assets/logo.jpg')} style={styles.logo} />
 
