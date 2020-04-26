@@ -1,20 +1,36 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import AuthContextData from '../models/AuthContextData';
 
 import Api from '../services/Api';
 import User from 'src/models/User';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadStorageData() {
+      const storageUser = await AsyncStorage.getItem('@MyApp1:user');
+      const storageToken = await AsyncStorage.getItem('@MyApp1:token');
+
+      if (storageUser && storageToken) {
+        setUser(JSON.parse(storageUser));
+      }
+    }
+    loadStorageData();
+
+    setLoading(false);
+  }, []);
 
   async function signIn(username: string, password: string) {
     const dados = {
       username: username,
       password: password,
     };
-    console.log(dados);
+    setLoading(true);
 
     const auth = await Api.post<User>('/api/account/token', dados);
 
@@ -26,9 +42,21 @@ export const AuthProvider: React.FC = ({children}) => {
     };
 
     setUser(user);
+
+    await AsyncStorage.setItem('@MyApp1:user', JSON.stringify(user));
+    await AsyncStorage.setItem('@MyApp1:token', user.access_token);
+    setLoading(false);
   }
+
+  function signOut() {
+    AsyncStorage.clear().then(() => {
+      setUser(null);
+    });
+  }
+
   return (
-    <AuthContext.Provider value={{signed: !!user, user, signIn}}>
+    <AuthContext.Provider
+      value={{signed: !!user, user, loading, signIn, signOut}}>
       {children}
     </AuthContext.Provider>
   );

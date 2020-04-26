@@ -8,6 +8,7 @@ const colors = {
   warning: '#FCC100',
   accent: '#313B4C',
 
+  white: '#FFF',
   background: '#F5F9FC',
   text: '#495057',
   textLight: '#737D85',
