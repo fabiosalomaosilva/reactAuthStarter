@@ -20,8 +20,6 @@ const Login: React.FC = () => {
   console.log(signed);
 
   function handleSignIn() {
-    console.log('passou aqui... ohhh');
-
     signIn(username, password);
   }
 

@@ -17,12 +17,12 @@ export const AuthProvider: React.FC = ({children}) => {
       const storageToken = await AsyncStorage.getItem('@MyApp1:token');
 
       if (storageUser && storageToken) {
+        Api.defaults.headers.Authorization = `Bearer ${storageToken}`;
         setUser(JSON.parse(storageUser));
+        setLoading(false);
       }
     }
     loadStorageData();
-
-    setLoading(false);
   }, []);
 
   async function signIn(username: string, password: string) {
@@ -42,6 +42,7 @@ export const AuthProvider: React.FC = ({children}) => {
     };
 
     setUser(user);
+    Api.defaults.headers.Authorization = `Bearer ${user.access_token}`;
 
     await AsyncStorage.setItem('@MyApp1:user', JSON.stringify(user));
     await AsyncStorage.setItem('@MyApp1:token', user.access_token);

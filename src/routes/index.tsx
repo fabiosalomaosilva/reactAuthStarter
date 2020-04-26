@@ -8,7 +8,6 @@ import Load from '../components/Load';
 
 const Routes: React.FC = () => {
   const {signed, loading} = useContext(AuthContext);
-  console.log('Está logado: ' + signed);
 
   if (loading) {
     return (

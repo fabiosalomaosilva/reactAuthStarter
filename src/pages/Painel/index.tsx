@@ -18,7 +18,7 @@ const Painel: React.FC = () => {
 
       <Image source={require('../../assets/logo.jpg')} style={styles.logo} />
 
-      <Button title="Sair" onPress={handleSignOut} styles={styles.botao} />
+      <Button title="Sair" onPress={handleSignOut} />
     </View>
   );
 };
