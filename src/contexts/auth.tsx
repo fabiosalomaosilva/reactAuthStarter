@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect, useContext} from 'react';
 import {AuthContextData} from '../models/AuthContextData';
 
-import Api from '../services/Api';
+import api from '../services/Api';
 import {User} from '../models/User';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -17,7 +17,7 @@ export const AuthProvider: React.FC = ({children}) => {
       const storageToken = await AsyncStorage.getItem('@MyApp1:token');
 
       if (storageUser && storageToken) {
-        Api.defaults.headers.Authorization = `Bearer ${storageToken}`;
+        api.defaults.headers.Authorization = `Bearer ${storageToken}`;
         setUser(JSON.parse(storageUser));
         setLoading(false);
       }
@@ -32,7 +32,7 @@ export const AuthProvider: React.FC = ({children}) => {
     };
     setLoading(true);
 
-    const auth = await Api.post<User>('/api/account/token', dados);
+    const auth = await api.post<User>('/api/account/token', dados);
 
     const authUser: User = {
       access_token: auth.data.access_token,
@@ -42,7 +42,7 @@ export const AuthProvider: React.FC = ({children}) => {
     };
 
     setUser(authUser);
-    Api.defaults.headers.Authorization = `Bearer ${authUser.access_token}`;
+    api.defaults.headers.Authorization = `Bearer ${authUser.access_token}`;
 
     await AsyncStorage.setItem('@MyApp1:user', JSON.stringify(authUser));
     await AsyncStorage.setItem('@MyApp1:token', authUser.access_token);
