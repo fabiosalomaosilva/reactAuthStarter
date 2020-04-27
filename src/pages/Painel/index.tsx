@@ -1,12 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, StatusBar, Image, Button} from 'react-native';
-import AuthContext from '../../contexts/auth';
 
 import styles from '../../styles/global';
 import colors from '../../styles/colors';
+import {useAuth} from '../../contexts/auth';
 
 const Painel: React.FC = () => {
-  const {signOut} = useContext(AuthContext);
+  const {signOut} = useAuth();
 
   function handleSignOut() {
     signOut();

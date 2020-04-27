@@ -1,8 +1,8 @@
-import React, {createContext, useState, useEffect} from 'react';
-import AuthContextData from '../models/AuthContextData';
+import React, {createContext, useState, useEffect, useContext} from 'react';
+import {AuthContextData} from '../models/AuthContextData';
 
 import Api from '../services/Api';
-import User from 'src/models/User';
+import {User} from '../models/User';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -34,18 +34,18 @@ export const AuthProvider: React.FC = ({children}) => {
 
     const auth = await Api.post<User>('/api/account/token', dados);
 
-    const user: User = {
+    const authUser: User = {
       access_token: auth.data.access_token,
       email: auth.data.email,
       fotoUri: auth.data.fotoUri,
       nomeCompleto: auth.data.nomeCompleto,
     };
 
-    setUser(user);
-    Api.defaults.headers.Authorization = `Bearer ${user.access_token}`;
+    setUser(authUser);
+    Api.defaults.headers.Authorization = `Bearer ${authUser.access_token}`;
 
-    await AsyncStorage.setItem('@MyApp1:user', JSON.stringify(user));
-    await AsyncStorage.setItem('@MyApp1:token', user.access_token);
+    await AsyncStorage.setItem('@MyApp1:user', JSON.stringify(authUser));
+    await AsyncStorage.setItem('@MyApp1:token', authUser.access_token);
     setLoading(false);
   }
 
@@ -63,4 +63,7 @@ export const AuthProvider: React.FC = ({children}) => {
   );
 };
 
-export default AuthContext;
+export function useAuth() {
+  const context = useContext(AuthContext);
+  return context;
+}

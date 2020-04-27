@@ -1,6 +1,6 @@
-import User from './User';
+import {User} from './User';
 
-export default interface AuthContextData {
+export interface AuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;

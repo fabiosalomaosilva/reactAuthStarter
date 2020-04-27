@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,12 +8,12 @@ import {
   StatusBar,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import AuthContext from '../../../contexts/auth';
 import styles from '../../../styles/global';
 import colors from '../../../styles/colors';
+import {useAuth} from 'src/contexts/auth';
 
 const Login: React.FC = () => {
-  const {signed, signIn} = useContext(AuthContext);
+  const {signed, signIn} = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();

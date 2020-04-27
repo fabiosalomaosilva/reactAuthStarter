@@ -1,4 +1,4 @@
-export default interface User {
+export interface User {
   access_token: string;
   email: string;
   fotoUri: string;
