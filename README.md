@@ -1,4 +1,5 @@
-# reactNativeAuthStarter
-Projeto de inicialização pronta com autenticação em ReactJs
+# React Native Auth Starter
 
-Projeto com fluxo de autenticação em JWT completo, com utilização do axios para comunicação com a API.
+Projeto de inicialização pronto com autenticação em React Native.
+
+Possui fluxo de autenticação em JWT completo, com utilização do axios para comunicação com a API.
