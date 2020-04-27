@@ -10,7 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import styles from '../../../styles/global';
 import colors from '../../../styles/colors';
-import {useAuth} from 'src/contexts/auth';
+import {useAuth} from '../../../contexts/auth';
 
 const Login: React.FC = () => {
   const {signed, signIn} = useAuth();
